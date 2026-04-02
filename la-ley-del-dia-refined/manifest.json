@@ -1,0 +1,21 @@
+{
+  "name": "La Ley del Dia",
+  "short_name": "La Ley",
+  "description": "Daily survival laws for Latina women from The Latina Survival Guide by Charo Toledo.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#FAEEDA",
+  "theme_color": "#BA7517",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
