@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>La Ley del Dia - The Latina Survival Guide</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#D33F2A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --red: #D33F2A;
+            --cream: #F5E6D3;
+            --dark: #2D1810;
+            --gold: #C4A961;
+            --white: #FFFFFF;
+            --shadow: rgba(45, 24, 16, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--cream);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .law-text {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Layout */
+        header {
+            padding: 20px;
+            text-align: center;
+            background: var(--white);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--red);
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+            color: var(--dark);
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            padding-bottom: 100px;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Law Card */
+        .law-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin-bottom: 30px;
+            border-top: 5px solid var(--red);
+            position: relative;
+        }
+
+        .law-number {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--red);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .law-text {
+            font-size: 1.6rem;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .translation {
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 1.4rem;
+            border-top: 1px solid var(--cream);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .reflection {
+            margin-top: 25px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .reflection p {
+            margin-bottom: 10px;
+        }
+
+        /* Journaling */
+        .journal-section {
+            margin-top: 30px;
+        }
+
+        .prompt {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--red);
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: none;
+            background: var(--white);
+            margin-bottom: 15px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(211, 63, 42, 0.1);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .btn-secondary {
+            background: var(--cream);
+            color: var(--red);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px var(--shadow);
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.7rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-item.active {
+            color: var(--red);
+        }
+
+        .nav-icon {
+            font-size: 1.4rem;
+            margin-bottom: 2px;
+        }
+
+        /* List Screens */
+        .list-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
+        .list-number {
+            width: 40px;
+            height: 40px;
+            background: var(--cream);
+            color: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .list-content {
+            flex: 1;
+        }
+
+        .list-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .list-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .check {
+            color: var(--red);
+            margin-left: 10px;
+        }
+
+        /* Streak */
+        .streak-badge {
+            background: linear-gradient(135deg, var(--red), #E85D52);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* Share Card Overlay */
+        #share-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #share-card {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, var(--red) 0%, #E85D52 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        #share-card .law-num {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        #share-card .law-txt {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+
+        #share-card .brand {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Notifications */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <p>The Latina Survival Guide</p>
+        <h1>La Ley del Dia</h1>
+    </header>
+
+    <main>
+        <!-- Home Screen -->
+        <div id="screen-home" class="screen active">
+            <div id="streak-container"></div>
+            
+            <div class="law-card">
+                <span class="law-number" id="today-num">Ley #1</span>
+                <div class="law-text" id="today-text-en">The American Dream has no warranty; especially if you're Puerto Rican.</div>
+                <div class="law-text translation" id="today-text-es">El Sueño Americano no tiene garantía; especialmente si eres puertorriqueña.</div>
+                
+                <div class="reflection">
+                    <p id="reflect-en">Survival starts with knowing the rules of the game. We build our own warranty through resilience.</p>
+                    <p id="reflect-es" style="font-style: italic; opacity: 0.8;">La supervivencia comienza conociendo las reglas del juego. Construimos nuestra propia garantía a través de la resiliencia.</p>
+                </div>
+            </div>
+
+            <div class="journal-section">
+                <div class="prompt">Your turn / Tu turno:</div>
+                <p id="prompt-text" style="font-size: 0.9rem; margin-bottom: 10px; opacity: 0.8;">Where have you had to create your own "warranty" in life?</p>
+                <textarea id="journal-input" placeholder="Write your reflection here... Escribe tu reflexión aquí..."></textarea>
+                <button class="btn btn-primary" onclick="saveEntry()">Save Entry / Guardar</button>
+                <button class="btn btn-secondary" onclick="showShareCard()">Share this Ley / Compartir</button>
+            </div>
+        </div>
+
+        <!-- Journal Screen -->
+        <div id="screen-journal" class="screen">
+            <h2 style="margin-bottom: 20px;">My Journal / Mi Diario</h2>
+            <div id="journal-list">
+                <!-- Entries will be injected here -->
+            </div>
+        </div>
+
+        <!-- All Laws Screen -->
+        <div id="screen-laws" class="screen">
+            <h2 style="margin-bottom: 20px;">55 Survival Laws</h2>
+            <div id="laws-list">
+                <!-- Laws will be injected here -->
+            </div>
+        </div>
+
+        <footer>
+            55 leyes. Tu vida. Tu voz.<br>
+            by Charo Toledo
+        </footer>
+    </main>
+
+    <nav>
+        <a href="#" class="nav-item active" onclick="showScreen('home')">
+            <span class="nav-icon">✨</span>
+            <span>Today</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showScreen('journal')">
+            <span class="nav-icon">📖</span>
+            <span>Journal</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showScreen('laws')">
+            <span class="nav-icon">📜</span>
+            <span>All Laws</span>
+        </a>
+    </nav>
+
+    <div id="share-overlay" onclick="hideShareCard()">
+        <div id="share-card">
+            <div class="law-num" id="share-num">Ley #1</div>
+            <div class="law-txt" id="share-text">The American Dream has no warranty; especially if you're Puerto Rican.</div>
+            <div class="brand">THE LATINA SURVIVAL GUIDE<br>by Charo Toledo</div>
+        </div>
+        <p style="color: white; position: absolute; bottom: 40px; text-align: center; width: 100%;">Tap anywhere to close. Screenshot to share!</p>
+    </div>
+
+    <div id="toast" class="toast">Entry saved! / ¡Guardado!</div>
+
+    <script>
+        // DATA: All 55 Survival Laws from The Latina Survival Guide
+        const laws = [
+            {
+                id: 1,
+                en: "The American Dream has no warranty; especially if you're Puerto Rican.",
+                es: "El Sueño Americano no tiene garantía; especialmente si eres puertorriqueña.",
+                reflectEn: "Survival starts with knowing the rules of the game. We build our own warranty through resilience.",
+                reflectEs: "La supervivencia comienza conociendo las reglas del juego. Construimos nuestra propia garantía a través de la resiliencia.",
+                prompt: "Where have you had to create your own 'warranty' in life? / ¿Dónde has tenido que crear tu propia 'garantía' en la vida?"
+            },
+            {
+                id: 2,
+                en: "Born in a storm? Congratulations, chaos is your sibling. Learn to braid the wind.",
+                es: "¿Naciste en una tormenta? Felicidades, el caos es tu hermano. Aprende a trenzar el viento.",
+                reflectEn: "Chaos isn't an obstacle; it's an environment. If you can't stop the wind, make it beautiful.",
+                reflectEs: "El caos no es un obstáculo; es un entorno. Si no puedes detener el viento, hazlo hermoso.",
+                prompt: "How are you 'braiding the wind' today? / ¿Cómo estás 'trenzando el viento' hoy?"
+            },
+            {
+                id: 3,
+                en: "When life feels impossible, pretend you're in a telenovela. If you can't survive it, at least give it ratings.",
+                es: "Cuando la vida parezca imposible, finge que estás en una telenovela. Si no puedes sobrevivirla, al menos dale rating.",
+                reflectEn: "Drama is a tool for survival. Humor and flair make the heavy moments lighter.",
+                reflectEs: "El drama es una herramienta de supervivencia. El humor y el estilo hacen que los momentos pesados sean más ligeros.",
+                prompt: "If today was an episode, what would the title be? / Si hoy fuera un episodio, ¿cuál sería el título?"
+            },
+            {
+                id: 4,
+                en: "Survival isn't muscle; it's stamina. Outlast everyone at the table.",
+                es: "La supervivencia no es músculo; es resistencia. Dura más que todos los demás en la mesa.",
+                reflectEn: "It's not about who is strongest, but who stays until the end.",
+                reflectEs: "No se trata de quién es más fuerte, sino de quién se queda hasta el final.",
+                prompt: "What gives you the stamina to keep going? / ¿Qué te da la resistencia para seguir adelante?"
+            },
+            {
+                id: 5,
+                en: "Family feud? Duck first, ask questions later.",
+                es: "¿Pelea familiar? Agáchate primero, pregunta después.",
+                reflectEn: "Protecting your peace is the first step in any conflict.",
+                reflectEs: "Proteger tu paz es el primer paso en cualquier conflicto.",
+                prompt: "How do you protect your energy during family drama? / ¿Cómo proteges tu energía durante el drama familiar?"
+            },
+            {
+                id: 6,
+                en: "Never underestimate the counted-out; disability doesn't cancel strategy.",
+                es: "Nunca subestimes a los que han sido descartados; la discapacidad no cancela la estrategia.",
+                reflectEn: "Our perceived weaknesses are often our greatest strategic advantages.",
+                reflectEs: "Nuestras debilidades percibidas son a menudo nuestras mayores ventajas estratégicas.",
+                prompt: "What 'weakness' have you turned into a strength? / ¿Qué 'debilidad' has convertido en una fortaleza?"
+            },
+            {
+                id: 7,
+                en: "Beware of the mother who stomps. Her ankles hold ancestral fury and culinary sorcery.",
+                es: "Cuidado con la madre que pisa fuerte. Sus tobillos guardan furia ancestral y brujería culinaria.",
+                reflectEn: "We carry the power and the discipline of the women who came before us.",
+                reflectEs: "Llevamos el poder y la disciplina de las mujeres que nos precedieron.",
+                prompt: "What ancestral power do you feel in your own steps? / ¿Qué poder ancestral sientes en tus propios pasos?"
+            },
+            {
+                id: 8,
+                en: "If love knocks, don't just open the door. Expect the full orchestra.",
+                es: "Si el amor toca a la puerta, no solo abras. Espera la orquesta completa.",
+                reflectEn: "Don't settle for a whisper when you deserve a symphony.",
+                reflectEs: "No te conformes con un susurro cuando mereces una sinfonía.",
+                prompt: "Are you settling for less than the full orchestra? / ¿Te estás conformando con menos que la orquesta completa?"
+            },
+            {
+                id: 9,
+                en: "In Puerto Rican families, every victory comes with collateral damage.",
+                es: "En las familias puertorriqueñas, cada victoria viene con daños colaterales.",
+                reflectEn: "Success is sweet, but it often requires navigating complex family dynamics.",
+                reflectEs: "El éxito es dulce, pero a menudo requiere navegar dinámicas familiares complejas.",
+                prompt: "What victory are you celebrating today, despite the noise? / ¿Qué victoria estás celebrando hoy, a pesar del ruido?"
+            },
+            {
+                id: 10,
+                en: "Laugh at death once, and marriage feels less like destiny than endurance.",
+                es: "Ríete de la muerte una vez, y el matrimonio se siente menos como destino que como resistencia.",
+                reflectEn: "Perspective changes everything. When you've faced the big things, the daily things become manageable.",
+                reflectEs: "La perspectiva lo cambia todo. Cuando has enfrentado las cosas grandes, las cotidianas se vuelven manejables.",
+                prompt: "What has given you a new perspective lately? / ¿Qué te ha dado una nueva perspectiva últimamente?"
+            },
+            {
+                id: 11,
+                en: "Ghosts don't scare me. Relatives with business plans do. But a sopa de plátano and a San Judas candle can make even death feel negotiable.",
+                es: "Los fantasmas no me asustan. Los parientes con planes de negocio sí. Pero una sopa de plátano y una vela de San Judas pueden hacer que hasta la muerte se sienta negociable.",
+                reflectEn: "Family chaos and spiritual comfort go hand in hand. Food and faith are the ultimate survival tools.",
+                reflectEs: "El caos familiar y el consuelo espiritual van de la mano. La comida y la fe son las herramientas de supervivencia definitivas.",
+                prompt: "What comfort ritual keeps you grounded? / ¿Qué ritual de consuelo te mantiene anclada?"
+            },
+            {
+                id: 12,
+                en: "Respect the neighborhood ghost. He always knows more secrets than the living.",
+                es: "Respeta el fantasma del barrio. Siempre sabe más secretos que los vivos.",
+                reflectEn: "History haunts us. Knowing where we come from helps us understand where we're going.",
+                reflectEs: "La historia nos persigue. Saber de dónde venimos nos ayuda a entender a dónde vamos.",
+                prompt: "What family secret shaped who you are? / ¿Qué secreto familiar moldeó quién eres?"
+            },
+            {
+                id: 13,
+                en: "If your street runs like a telenovela, lean in. Even your nostalgia deserves a theme song.",
+                es: "Si tu calle corre como una telenovela, inclínate. Incluso tu nostalgia merece una canción de tema.",
+                reflectEn: "Own your story. The drama, the pain, the joy—it's all worth telling.",
+                reflectEs: "Sé dueña de tu historia. El drama, el dolor, la alegría, todo vale la pena contar.",
+                prompt: "What's the theme song of your life right now? / ¿Cuál es la canción de tema de tu vida ahora mismo?"
+            },
+            {
+                id: 14,
+                en: "Paranoia counts as survival. Uno nunca sabe.",
+                es: "La paranoia cuenta como supervivencia. Uno nunca sabe.",
+                reflectEn: "Healthy skepticism keeps you safe. Trust your instincts.",
+                reflectEs: "El escepticismo saludable te mantiene segura. Confía en tus instintos.",
+                prompt: "When has your gut feeling saved you? / ¿Cuándo tu instinto te ha salvado?"
+            },
+            {
+                id: 15,
+                en: "Spot the frauds, savor the recipes, and never mistake a costume for a crown.",
+                es: "Identifica a los fraudes, saborea las recetas y nunca confundas un disfraz con una corona.",
+                reflectEn: "Authenticity matters. Know the difference between performance and power.",
+                reflectEs: "La autenticidad importa. Conoce la diferencia entre actuación y poder.",
+                prompt: "What's one fake thing you've stopped pretending to be? / ¿Cuál es una cosa falsa que has dejado de fingir ser?"
+            },
+            {
+                id: 16,
+                en: "Not every savior wears wings. Some wear aprons, smear aloe on your wounds, and teach you that love can survive shame, laughter, and even bad pyramid schemes.",
+                es: "No todo salvador lleva alas. Algunos llevan delantales, untan aloe en tus heridas y te enseñan que el amor puede sobrevivir la vergüenza, la risa e incluso los esquemas piramidales malos.",
+                reflectEn: "The people who save us are often the ones who show up quietly with soup and wisdom.",
+                reflectEs: "Las personas que nos salvan a menudo son las que aparecen silenciosamente con sopa y sabiduría.",
+                prompt: "Who's your quiet savior? / ¿Quién es tu salvador silencioso?"
+            },
+            {
+                id: 17,
+                en: "Never underestimate a diva; especially when she's heartbroken. Glamour fades, but survival always looks fabulous under pressure.",
+                es: "Nunca subestimes a una diva; especialmente cuando está desconsolada. El glamour se desvanece, pero la supervivencia siempre se ve fabulosa bajo presión.",
+                reflectEn: "Strength and style aren't mutually exclusive. You can be fierce and fabulous.",
+                reflectEs: "La fuerza y el estilo no son mutuamente excluyentes. Puedes ser feroz y fabulosa.",
+                prompt: "How do you show up fabulous even when you're breaking? / ¿Cómo te presentas fabulosa incluso cuando te estás rompiendo?"
+            },
+            {
+                id: 18,
+                en: "If you can survive chaos, heartbreak, and ghosts, you can survive anything. Just bring heels: the devil respects stilettos.",
+                es: "Si puedes sobrevivir el caos, la angustia y los fantasmas, puedes sobrevivir cualquier cosa. Solo trae tacones: el diablo respeta los stilettos.",
+                reflectEn: "Confidence is armor. Wear it like you mean it.",
+                reflectEs: "La confianza es armadura. Úsala como si la dijeras en serio.",
+                prompt: "What's your power outfit? / ¿Cuál es tu atuendo de poder?"
+            },
+            {
+                id: 19,
+                en: "If your family party doesn't require a helmet, elastic pants and a referee with poetry skills, was it even a fiesta?",
+                es: "Si tu fiesta familiar no requiere un casco, pantalones elásticos y un árbitro con habilidades poéticas, ¿fue siquiera una fiesta?",
+                reflectEn: "Family chaos is a feature, not a bug. The noise means you belong.",
+                reflectEs: "El caos familiar es una característica, no un error. El ruido significa que perteneces.",
+                prompt: "What's your favorite family chaos memory? / ¿Cuál es tu recuerdo favorito del caos familiar?"
+            },
+            {
+                id: 20,
+                en: "If you bleed long enough, you stop apologizing for the stain.",
+                es: "Si sangras lo suficiente, dejas de disculparte por la mancha.",
+                reflectEn: "Trauma leaves marks. Stop apologizing for your scars.",
+                reflectEs: "El trauma deja marcas. Deja de disculparte por tus cicatrices.",
+                prompt: "What scar are you finally owning? / ¿Qué cicatriz finalmente estás asumiendo?"
+            },
+            {
+                id: 21,
+                en: "Fold your insecurities into a cootie catcher and remember: you're the fortune, not the paper.",
+                es: "Dobla tus inseguridades en un cazador de piojos y recuerda: eres la fortuna, no el papel.",
+                reflectEn: "You are not your doubts. You are the possibility beneath them.",
+                reflectEs: "No eres tus dudas. Eres la posibilidad debajo de ellas.",
+                prompt: "What fortune are you ready to claim? / ¿Qué fortuna estás lista para reclamar?"
+            },
+            {
+                id: 22,
+                en: "On Madrid Street, survival wasn't about picking tragedy or comedy; it was dancing both in sequins.",
+                es: "En Madrid Street, la supervivencia no se trataba de elegir tragedia o comedia; se trataba de bailar ambas en lentejuelas.",
+                reflectEn: "Life is both sad and beautiful. Dance through it anyway.",
+                reflectEs: "La vida es tanto triste como hermosa. Baila a través de ella de todos modos.",
+                prompt: "How are you dancing through your contradictions? / ¿Cómo estás bailando a través de tus contradicciones?"
+            },
+            {
+                id: 23,
+                en: "When life casts you as Saint Joseph at eight, wear the beard and own the role. Dynasties fade; destiny does not.",
+                es: "Cuando la vida te echa como San José a los ocho, usa la barba y sé dueña del papel. Las dinastías se desvanecen; el destino no.",
+                reflectEn: "Sometimes you're cast in roles you didn't audition for. Make them yours anyway.",
+                reflectEs: "A veces te echan en papeles para los que no audicionaste. Hazlos tuyos de todos modos.",
+                prompt: "What unexpected role has shaped you? / ¿Qué papel inesperado te ha moldeado?"
+            },
+            {
+                id: 24,
+                en: "In my novela, villains plot, fortunes collapse, but the heroine? She survives.",
+                es: "En mi novela, los villanos conspiran, las fortunas colapsan, pero ¿la heroína? Ella sobrevive.",
+                reflectEn: "You are the hero of your own story. Act accordingly.",
+                reflectEs: "Eres la heroína de tu propia historia. Actúa en consecuencia.",
+                prompt: "What's your next chapter? / ¿Cuál es tu próximo capítulo?"
+            },
+            {
+                id: 25,
+                en: "Snow looks magical until it soaks your socks. Choose survival over suede.",
+                es: "La nieve se ve mágica hasta que te moja los calcetines. Elige supervivencia sobre ante.",
+                reflectEn: "Practicality beats aesthetics when it comes to survival. Choose comfort.",
+                reflectEs: "La practicidad vence la estética cuando se trata de supervivencia. Elige comodidad.",
+                prompt: "What comfort have you chosen over appearance? / ¿Qué comodidad has elegido sobre la apariencia?"
+            },
+            {
+                id: 26,
+                en: "At fourteen, sequins and borrowed choreography count as confidence. The mustache comes off; the shame never does.",
+                es: "A los catorce, las lentejuelas y la coreografía prestada cuentan como confianza. El bigote se quita; la vergüenza nunca.",
+                reflectEn: "Adolescence is a performance. Some props we keep; some we shed.",
+                reflectEs: "La adolescencia es una actuación. Algunos accesorios los guardamos; otros los dejamos.",
+                prompt: "What teenage shame are you finally letting go of? / ¿Qué vergüenza adolescente finalmente estás dejando ir?"
+            },
+            {
+                id: 27,
+                en: "Beauty fades, but electrolysis pain is eternal. Choose your battles; some scars are invisible but still burn.",
+                es: "La belleza se desvanece, pero el dolor de la electrólisis es eterno. Elige tus batallas; algunas cicatrices son invisibles pero aún queman.",
+                reflectEn: "The pursuit of beauty can hurt. Sometimes the most radical act is accepting yourself as is.",
+                reflectEs: "La búsqueda de la belleza puede doler. A veces el acto más radical es aceptarte tal como eres.",
+                prompt: "What beauty standard are you finally rejecting? / ¿Qué estándar de belleza finalmente estás rechazando?"
+            },
+            {
+                id: 28,
+                en: "Hair bleach is temporary. Polaroids are forever.",
+                es: "El blanqueador de cabello es temporal. Los Polaroids son para siempre.",
+                reflectEn: "Moments matter more than transformations. What you do lives longer than how you look.",
+                reflectEs: "Los momentos importan más que las transformaciones. Lo que haces vive más que cómo te ves.",
+                prompt: "What moment do you want to be remembered for? / ¿Qué momento quieres que se recuerde?"
+            },
+            {
+                id: 29,
+                en: "Grace won't save you from gravity, or bad taste in boys. Dolls may be fragile, but they endure.",
+                es: "La gracia no te salvará de la gravedad, ni del mal gusto en los chicos. Las muñecas pueden ser frágiles, pero perduran.",
+                reflectEn: "Fragility and strength coexist. You can be delicate and unbreakable.",
+                reflectEs: "La fragilidad y la fortaleza coexisten. Puedes ser delicada e inquebrantable.",
+                prompt: "How are you both fragile and unbreakable? / ¿Cómo eres tanto frágil como inquebrantable?"
+            },
+            {
+                id: 30,
+                en: "A bad first kiss is a blessing. It lowers expectations for everything after.",
+                es: "Un primer beso malo es una bendición. Baja las expectativas para todo lo que viene después.",
+                reflectEn: "Low expectations are a gift. They give you room to be surprised.",
+                reflectEs: "Las bajas expectativas son un regalo. Te dan espacio para sorprenderte.",
+                prompt: "What low expectation turned into a beautiful surprise? / ¿Qué baja expectativa se convirtió en una sorpresa hermosa?"
+            },
+            {
+                id: 31,
+                en: "You can survive polyester, pizza caves, and Catholic guilt. What breaks you is always the thing no one sees.",
+                es: "Puedes sobrevivir el poliéster, las cuevas de pizza y la culpa católica. Lo que te quiebra es siempre la cosa que nadie ve.",
+                reflectEn: "The invisible wounds are the deepest. Tend to what no one else can see.",
+                reflectEs: "Las heridas invisibles son las más profundas. Atiende lo que nadie más puede ver.",
+                prompt: "What invisible wound are you finally healing? / ¿Qué herida invisible finalmente estás sanando?"
+            },
+            {
+                id: 32,
+                en: "Life's a pair of saddle shoes; squeaky, stiff, humiliating. Learn the code, play along, and graduate with your dignity intact.",
+                es: "La vida es un par de zapatos de montar; chirriantes, rígidos, humillantes. Aprende el código, juega, y gradúate con tu dignidad intacta.",
+                reflectEn: "School teaches you more than academics. It teaches you how to survive systems.",
+                reflectEs: "La escuela te enseña más que académicos. Te enseña cómo sobrevivir sistemas.",
+                prompt: "What system have you learned to navigate? / ¿Qué sistema has aprendido a navegar?"
+            },
+            {
+                id: 33,
+                en: "Trapped with hormone-crazed teens? Forget logic. Play a telenovela; puberty bows to a dramatic slap.",
+                es: "¿Atrapada con adolescentes locos de hormonas? Olvida la lógica. Juega una telenovela; la pubertad se inclina ante una cachetada dramática.",
+                reflectEn: "Sometimes drama is the most effective communication. Emotions speak louder than reason.",
+                reflectEs: "A veces el drama es la comunicación más efectiva. Las emociones hablan más fuerte que la razón.",
+                prompt: "When has your drama been your strength? / ¿Cuándo tu drama ha sido tu fortaleza?"
+            },
+            {
+                id: 34,
+                en: "Science may impress the judges, but chemistry always steals the novela.",
+                es: "La ciencia puede impresionar a los jueces, pero la química siempre roba la novela.",
+                reflectEn: "Connection matters more than credentials. Chemistry is the real science.",
+                reflectEs: "La conexión importa más que las credenciales. La química es la verdadera ciencia.",
+                prompt: "What connection has changed your life? / ¿Qué conexión ha cambiado tu vida?"
+            },
+            {
+                id: 35,
+                en: "In Puerto Rico, survival isn't defensive driving… it's strategic bribery.",
+                es: "En Puerto Rico, la supervivencia no es conducción defensiva... es soborno estratégico.",
+                reflectEn: "Know the rules. Know when to break them. Know who to charm.",
+                reflectEs: "Conoce las reglas. Sabe cuándo romperlas. Sabe a quién encantar.",
+                prompt: "What rule have you strategically bent? / ¿Qué regla has doblado estratégicamente?"
+            },
+            {
+                id: 36,
+                en: "A medical degree can't save you from gossip. Family scandal spreads faster than malpractice suits.",
+                es: "Un título médico no puede salvarte de los chismes. El escándalo familiar se propaga más rápido que los pleitos por negligencia.",
+                reflectEn: "No credential protects you from family drama. Accept it and move on.",
+                reflectEs: "Ninguna credencial te protege del drama familiar. Acéptalo y sigue adelante.",
+                prompt: "What family gossip have you learned to ignore? / ¿Qué chisme familiar has aprendido a ignorar?"
+            },
+            {
+                id: 37,
+                en: "When life demands a talent show, crown yourself and perform. Delusion is just confidence with better lighting.",
+                es: "Cuando la vida exige un show de talentos, corónaté y actúa. La ilusión es solo confianza con mejor iluminación.",
+                reflectEn: "Fake it till you make it is a survival strategy. Confidence is a performance.",
+                reflectEs: "Finge hasta que lo logres es una estrategia de supervivencia. La confianza es una actuación.",
+                prompt: "What are you faking confidence in right now? / ¿En qué estás fingiendo confianza ahora mismo?"
+            },
+            {
+                id: 38,
+                en: "Repression always leaks; sometimes in graffiti. Bring rosaries, Wite-Out and a plausible alibi.",
+                es: "La represión siempre se filtra; a veces en graffiti. Trae rosarios, Wite-Out y una coartada plausible.",
+                reflectEn: "What you repress will find a way out. Better to express it consciously.",
+                reflectEs: "Lo que reprimes encontrará una salida. Es mejor expresarlo conscientemente.",
+                prompt: "What are you finally expressing instead of repressing? / ¿Qué finalmente estás expresando en lugar de reprimir?"
+            },
+            {
+                id: 39,
+                en: "Every masked ball crowns a Cinderella. But survival belongs to the rebels and the weirdos.",
+                es: "Cada baile de máscaras corona a una Cenicienta. Pero la supervivencia pertenece a los rebeldes y los raros.",
+                reflectEn: "Don't aspire to be the princess. Aspire to be the rebel who survives.",
+                reflectEs: "No aspires a ser la princesa. Aspira a ser la rebelde que sobrevive.",
+                prompt: "How are you rebelling today? / ¿Cómo estás rebelándote hoy?"
+            },
+            {
+                id: 40,
+                en: "Parents can block cleavage and dodge truth, but repression always reruns. The sequel's called real life.",
+                es: "Los padres pueden bloquear el escote y evadir la verdad, pero la represión siempre se repite. La secuela se llama vida real.",
+                reflectEn: "What you don't face in childhood faces you in adulthood. Healing starts with honesty.",
+                reflectEs: "Lo que no enfrentas en la infancia te enfrenta en la edad adulta. La curación comienza con la honestidad.",
+                prompt: "What childhood truth are you finally facing? / ¿Qué verdad de la infancia finalmente estás enfrentando?"
+            },
+            {
+                id: 41,
+                en: "Survival is the only medal that never tarnishes.",
+                es: "La supervivencia es la única medalla que nunca se empaña.",
+                reflectEn: "You've already won. You're still here.",
+                reflectEs: "Ya has ganado. Todavía estás aquí.",
+                prompt: "What survival victory are you celebrating today? / ¿Qué victoria de supervivencia estás celebrando hoy?"
+            },
+            {
+                id: 42,
+                en: "First love and the sea share a talent for wreckage. If you're lucky, all you lose is your socks.",
+                es: "El primer amor y el mar comparten un talento para el naufragio. Si tienes suerte, todo lo que pierdes son tus calcetines.",
+                reflectEn: "Some losses teach us more than some wins. Cherish the wreckage.",
+                reflectEs: "Algunas pérdidas nos enseñan más que algunas victorias. Aprecia el naufragio.",
+                prompt: "What beautiful wreckage has taught you something? / ¿Qué naufragio hermoso te ha enseñado algo?"
+            },
+            {
+                id: 43,
+                en: "A bad haircut is temporary. Learning to live with yourself takes longer to grow out.",
+                es: "Un mal corte de cabello es temporal. Aprender a vivir contigo mismo tarda más en crecer.",
+                reflectEn: "Self-acceptance is the longest journey. Be patient with yourself.",
+                reflectEs: "La autoaceptación es el viaje más largo. Sé paciente contigo misma.",
+                prompt: "What part of yourself are you learning to accept? / ¿Qué parte de ti estás aprendiendo a aceptar?"
+            },
+            {
+                id: 44,
+                en: "One dance isn't a marriage. A yes isn't forever. And silence will betray you faster than a fake ID ever could.",
+                es: "Un baile no es un matrimonio. Un sí no es para siempre. Y el silencio te traicionará más rápido que una identificación falsa.",
+                reflectEn: "Speak your truth. Silence is a choice that has consequences.",
+                reflectEs: "Habla tu verdad. El silencio es una opción que tiene consecuencias.",
+                prompt: "What truth have you been silent about? / ¿Qué verdad has estado callada?"
+            },
+            {
+                id: 45,
+                en: "Echoes of Silence: Secrets don't stay buried. They wait for the worst moment to resurface, usually mid-salsa. And silence, like cement, keeps the whole cracked structure standing, until the day it doesn't.",
+                es: "Ecos del Silencio: Los secretos no permanecen enterrados. Esperan el peor momento para resurgir, generalmente a mitad de la salsa. Y el silencio, como el cemento, mantiene toda la estructura agrietada en pie, hasta el día en que no lo hace.",
+                reflectEn: "Secrets have a shelf life. The longer you keep them, the more damage they do.",
+                reflectEs: "Los secretos tienen una fecha de vencimiento. Cuanto más tiempo los guardas, más daño hacen.",
+                prompt: "What secret are you ready to tell? / ¿Qué secreto estás lista para contar?"
+            },
+            {
+                id: 46,
+                en: "If your family recipe involves urine, call it artisanal, and remember: every generation ferments its own cure. Some heal with prayer, some with pitorro and some with laughter disguised as memory.",
+                es: "Si tu receta familiar implica orina, llámala artesanal, y recuerda: cada generación fermenta su propio remedio. Algunos sanan con oración, algunos con pitorro y algunos con risa disfrazada de memoria.",
+                reflectEn: "Every family has its own medicine. Yours is valid, even if it's unconventional.",
+                reflectEs: "Cada familia tiene su propia medicina. La tuya es válida, incluso si es poco convencional.",
+                prompt: "What's your family's medicine? / ¿Cuál es la medicina de tu familia?"
+            },
+            {
+                id: 47,
+                en: "If they call you fiera? Wear it. Claws out, heart steady. Survival isn't handed down, it's hand built.",
+                es: "¿Si te llaman fiera? Úsalo. Garras afuera, corazón firme. La supervivencia no se hereda, se construye con las manos.",
+                reflectEn: "Your fierceness is your superpower. Build it intentionally.",
+                reflectEs: "Tu ferocidad es tu superpotencia. Constrúyela intencionalmente.",
+                prompt: "How are you building your fierceness? / ¿Cómo estás construyendo tu ferocidad?"
+            },
+            {
+                id: 48,
+                en: "Be suspicious of anyone who calls green eyeshadow 'natural.' They're hiding bigger lies and probably own a friendship tiger.",
+                es: "Desconfía de cualquiera que llame 'natural' a la sombra de ojos verde. Están ocultando mentiras más grandes y probablemente poseen un tigre de amistad.",
+                reflectEn: "Trust your instincts about people. If something feels off, it probably is.",
+                reflectEs: "Confía en tus instintos sobre las personas. Si algo se siente mal, probablemente lo sea.",
+                prompt: "What red flag have you finally recognized? / ¿Qué bandera roja finalmente has reconocido?"
+            },
+            {
+                id: 49,
+                en: "Survive like a cat; claws out, eyes open, landing on your feet every time. Protect the secret. Guard the heart. And when silence comes, purr louder than fear.",
+                es: "Sobrevive como un gato; garras afuera, ojos abiertos, aterrizando en tus pies cada vez. Protege el secreto. Guarda el corazón. Y cuando llegue el silencio, ronronea más fuerte que el miedo.",
+                reflectEn: "You have nine lives. Use them wisely.",
+                reflectEs: "Tienes nueve vidas. Úsalas sabiamente.",
+                prompt: "How are you landing on your feet? / ¿Cómo estás aterrizando en tus pies?"
+            },
+            {
+                id: 50,
+                en: "Never fear a SWAT team. Fear an interrupted merienda.",
+                es: "Nunca temas a un equipo SWAT. Teme una merienda interrumpida.",
+                reflectEn: "Protect your rituals. They're what keep you sane.",
+                reflectEs: "Protege tus rituales. Son lo que te mantiene cuerda.",
+                prompt: "What ritual is non-negotiable for you? / ¿Qué ritual es innegociable para ti?"
+            },
+            {
+                id: 51,
+                en: "If life's equations never add up, trust your instinct, not the numbers. The answer is never in math; it's in survival.",
+                es: "Si las ecuaciones de la vida nunca cuadran, confía en tu instinto, no en los números. La respuesta nunca está en las matemáticas; está en la supervivencia.",
+                reflectEn: "Logic fails. Intuition survives. Trust the gut.",
+                reflectEs: "La lógica falla. La intuición sobrevive. Confía en el instinto.",
+                prompt: "When has your gut been right? / ¿Cuándo tu instinto ha tenido razón?"
+            },
+            {
+                id: 52,
+                en: "If your bed shakes, pray it's the motor; not the money laundering.",
+                es: "Si tu cama se mueve, reza que sea el motor; no el lavado de dinero.",
+                reflectEn: "Know what you're getting into. Ignorance is not bliss; it's danger.",
+                reflectEs: "Sabe en qué te estás metiendo. La ignorancia no es dicha; es peligro.",
+                prompt: "What have you chosen to know vs. not know? / ¿Qué has elegido saber vs. no saber?"
+            },
+            {
+                id: 53,
+                en: "Barbershops are confessionals. Tip well; your secrets depend on it.",
+                es: "Las barberías son confesionarios. Propina bien; tus secretos dependen de ello.",
+                reflectEn: "Find your people. The ones who hold your secrets and ask no questions.",
+                reflectEs: "Encuentra tu gente. Los que guardan tus secretos y no hacen preguntas.",
+                prompt: "Who holds your secrets? / ¿Quién guarda tus secretos?"
+            },
+            {
+                id: 54,
+                en: "Fold your insecurities into a cookie catcher, slip them in your pocket, and remember: you're the fortune, not the paper.",
+                es: "Dobla tus inseguridades en un cazador de galletas, deslízalas en tu bolsillo, y recuerda: eres la fortuna, no el papel.",
+                reflectEn: "You contain multitudes. You are more than your doubts.",
+                reflectEs: "Contiene multitudes. Eres más que tus dudas.",
+                prompt: "What fortune are you carrying with you? / ¿Qué fortuna estás llevando contigo?"
+            },
+            {
+                id: 55,
+                en: "Success isn't a checklist. It's a novela. Survive it. Rewrite it. Blind them with sequins.",
+                es: "El éxito no es una lista de verificación. Es una novela. Sobrevívela. Reescríbela. Cegalos con lentejuelas.",
+                reflectEn: "Your success is your own. Define it. Own it. Make it fabulous.",
+                reflectEs: "Tu éxito es tuyo. Defínelo. Asúmelo. Hazlo fabuloso.",
+                prompt: "How are you rewriting your success story? / ¿Cómo estás reescribiendo tu historia de éxito?"
+            }
+        ];
+
+        // State Management
+        let currentLawIndex = 0;
+        let journalEntries = JSON.parse(localStorage.getItem('ley_journal')) || [];
+        let streak = parseInt(localStorage.getItem('ley_streak')) || 0;
+        let lastJournalDate = localStorage.getItem('ley_last_date') || null;
+
+        // Initialize
+        function init() {
+            calculateDailyLaw();
+            renderToday();
+            renderLawsList();
+            renderJournal();
+            updateStreakDisplay();
+            
+            // Register Service Worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').catch(() => {});
+            }
+        }
+
+        function calculateDailyLaw() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            const dayOfYear = Math.floor(diff / oneDay);
+            currentLawIndex = dayOfYear % laws.length;
+        }
+
+        function renderToday() {
+            const law = laws[currentLawIndex];
+            document.getElementById('today-num').innerText = `Ley #${law.id}`;
+            document.getElementById('today-text-en').innerText = law.en;
+            document.getElementById('today-text-es').innerText = law.es;
+            document.getElementById('reflect-en').innerText = law.reflectEn;
+            document.getElementById('reflect-es').innerText = law.reflectEs;
+            document.getElementById('prompt-text').innerText = law.prompt;
+            
+            // Clear input if not saved for today
+            const todayStr = new Date().toDateString();
+            const existing = journalEntries.find(e => e.date === todayStr && e.lawId === law.id);
+            document.getElementById('journal-input').value = existing ? existing.text : "";
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(`screen-${screenId}`).classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const navItems = document.querySelectorAll('.nav-item');
+            if(screenId === 'home') navItems[0].classList.add('active');
+            if(screenId === 'journal') navItems[1].classList.add('active');
+            if(screenId === 'laws') navItems[2].classList.add('active');
+
+            if(screenId === 'journal') renderJournal();
+            if(screenId === 'laws') renderLawsList();
+            
+            window.scrollTo(0,0);
+        }
+
+        function saveEntry() {
+            const text = document.getElementById('journal-input').value;
+            if(!text.trim()) return;
+
+            const todayStr = new Date().toDateString();
+            const law = laws[currentLawIndex];
+            
+            // Update or Add
+            const index = journalEntries.findIndex(e => e.date === todayStr && e.lawId === law.id);
+            if(index > -1) {
+                journalEntries[index].text = text;
+            } else {
+                journalEntries.push({
+                    date: todayStr,
+                    lawId: law.id,
+                    lawTitle: law.en,
+                    text: text
+                });
+                updateStreak();
+            }
+
+            localStorage.setItem('ley_journal', JSON.stringify(journalEntries));
+            showToast();
+        }
+
+        function updateStreak() {
+            const todayStr = new Date().toDateString();
+            if(lastJournalDate !== todayStr) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayStr = yesterday.toDateString();
+
+                if(lastJournalDate === yesterdayStr) {
+                    streak++;
+                } else {
+                    streak = 1;
+                }
+                
+                lastJournalDate = todayStr;
+                localStorage.setItem('ley_streak', streak);
+                localStorage.setItem('ley_last_date', lastJournalDate);
+                updateStreakDisplay();
+            }
+        }
+
+        function updateStreakDisplay() {
+            const container = document.getElementById('streak-container');
+            if(streak > 0) {
+                container.innerHTML = `<div class="streak-badge">🔥 ${streak} Day Streak</div>`;
+            } else {
+                container.innerHTML = '';
+            }
+        }
+
+        function renderJournal() {
+            const list = document.getElementById('journal-list');
+            if(journalEntries.length === 0) {
+                list.innerHTML = '<p style="text-align:center; opacity:0.5; margin-top:40px;">No entries yet. Start reflecting today! / ¡Sin entradas aún. ¡Comienza a reflexionar hoy!</p>';
+                return;
+            }
+
+            list.innerHTML = journalEntries.slice().reverse().map(entry => `
+                <div class="list-item">
+                    <div class="list-number">${entry.lawId}</div>
+                    <div class="list-content">
+                        <div class="list-subtitle">${entry.date}</div>
+                        <div class="list-title">${entry.lawTitle}</div>
+                        <p style="font-size:0.9rem; margin-top:10px; border-left: 2px solid var(--cream); padding-left:10px;">${entry.text}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderLawsList() {
+            const list = document.getElementById('laws-list');
+            list.innerHTML = laws.map(law => {
+                const completed = journalEntries.some(e => e.lawId === law.id);
+                return `
+                    <div class="list-item" onclick="viewLaw(${law.id - 1})" style="cursor:pointer;">
+                        <div class="list-number">${law.id}</div>
+                        <div class="list-content">
+                            <div class="list-title">${law.en}</div>
+                            <div class="list-subtitle">${law.es}</div>
+                        </div>
+                        ${completed ? '<span class="check">✔</span>' : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function viewLaw(index) {
+            currentLawIndex = index;
+            renderToday();
+            showScreen('home');
+        }
+
+        function showShareCard() {
+            const law = laws[currentLawIndex];
+            document.getElementById('share-num').innerText = `Ley #${law.id}`;
+            document.getElementById('share-text').innerText = law.en;
+            document.getElementById('share-overlay').style.display = 'flex';
+        }
+
+        function hideShareCard() {
+            document.getElementById('share-overlay').style.display = 'none';
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
